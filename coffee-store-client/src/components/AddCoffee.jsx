@@ -23,7 +23,7 @@ const AddCoffee = () => {
       if(data.insertedId){
         console.log('added successfully.');
         Swal.fire({
-        title: "Drag me!",
+        title: "New Coffee Added!",
         icon: "success",
         draggable: true
 });
