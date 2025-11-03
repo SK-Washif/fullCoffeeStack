@@ -61,7 +61,10 @@ const CoffeeCard = ({coffee}) => {
         <Link to={`/coffee/${_id}`}>
         <button className="btn join-item">View</button> 
         </Link>
+
+        <Link to={`UpdateCoffee/${_id}`}>
         <button className="btn join-item">Edit</button>
+        </Link>
         <button onClick={()=>handleDelete(_id)} className="btn join-item">X</button>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useLoaderData } from 'react-router'
-import CoffeeCard from './coffeeCard';
+import CoffeeCard from './CoffeeCard';
 
 
 const Home = () => {
