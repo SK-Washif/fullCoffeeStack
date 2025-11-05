@@ -18,11 +18,11 @@ const CoffeeDetails = () => {
         <h2 className="card-title">{name}</h2>
         
         <div className='gap-20'>
-          <p>Quantity: {quantity}</p>
-          <p>Supplier: {supplier}</p>
-          <p>Taste: {taste}</p>
-          <p>Details: {details}</p>
-          <p>Price: {price}</p>
+          <p>Quantity : {quantity}</p>
+          <p>Supplier : {supplier}</p>
+          <p>Taste : {taste}</p>
+          <p>Details : {details}</p>
+          <p>Price : {price}</p>
         </div>
         
       </div>
