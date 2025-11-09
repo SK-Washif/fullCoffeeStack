@@ -1,9 +1,44 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthContext } from '../contexts/AuthContext';
 
 const Signin = () => {
+  const {signInUser} = useContext(AuthContext)
 
   const handleSignIn = e =>{
     e.preventDefault();
+    const  form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password);
+
+    //firebase signin set
+    signInUser(email, password)
+    .then(result =>{
+      console.log(result.user)
+      const signInInfo = {
+        email,
+        lastSignInTime: result.user?.metadata?.lastSignInTime
+
+      }
+      //update last sign in to the batabase
+      fetch('http://localhost:7800/users',{
+        method: 'PATCH',
+
+        headers:{
+          'content-type': 'application/json'
+        },
+
+        body: JSON.stringify(signInInfo)
+      })
+      .then(res=> res.json())
+      .then(data => {
+        console.log('after update patch', data)
+      })
+
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
 
   return (
