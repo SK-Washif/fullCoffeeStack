@@ -21,7 +21,7 @@ const Signin = () => {
 
       }
       //update last sign in to the batabase
-      fetch('http://localhost:7800/users',{
+      fetch('https://coffee-store-server-lac-psi-86.vercel.app/users',{
         method: 'PATCH',
 
         headers:{
