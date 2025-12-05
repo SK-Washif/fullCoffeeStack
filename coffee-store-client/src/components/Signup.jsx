@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { AuthContext } from '../contexts/AuthContext'
 import swal from 'sweetalert2'
 import Swal from 'sweetalert2'
+import axios from 'axios'
 
 const Signup = () => {
 
@@ -18,40 +19,52 @@ const Signup = () => {
 
     
 
-    
-
     //create user in the firebase
     createUser(email, password)
     .then(result => {
       console.log(result.user);
 
-      const userProfile = {
-        email,
-        ...restFormData,
-        creationTime: result.user?.metadata?.creationTime,
-        lastSignInTime: result.user?.metadata?.lastSignInTime
-      }
+      const createdAt = result.user?.metadata?.creationTime;
+      const user = {email, createdAt: createdAt}
+
+      // const userProfile = {
+      //   email,
+      //   ...restFormData,
+      //   creationTime: result.user?.metadata?.creationTime,
+      //   lastSignInTime: result.user?.metadata?.lastSignInTime
+      // }
+
+
+      //use axios
+      axios.post('http://localhost:7800/users', user)
+      .then(data => {
+        if(data.data.insertedID){
+          console.log("data added to the database");
+        }
+        
+      })
+
 
       //save profile info into the db
-      fetch("https://coffee-store-server-lac-psi-86.vercel.app/users",{
-        method: "POST",
-        headers:{
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify(userProfile)
-      })
-      .then(res => res.json())
-      .then(data => {
-        if(data.insertedId){
-          Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Your Account is Created.",
-                showConfirmButton: false,
-                timer: 1500
-              });
-        }
-      })
+      // fetch("http://localhost:7800/users",{
+      //   method: "POST",
+      //   headers:{
+      //     'content-type': 'application/json'
+      //   },
+      //   body: JSON.stringify(userProfile)
+      // })
+      // .then(res => res.json())
+      // .then(data => {
+      //   if(data.insertedId){
+      //     Swal.fire({
+      //           position: "top-end",
+      //           icon: "success",
+      //           title: "Your Account is Created.",
+      //           showConfirmButton: false,
+      //           timer: 1500
+      //         });
+      //   }
+      // })
 
     })
     .catch(error =>{

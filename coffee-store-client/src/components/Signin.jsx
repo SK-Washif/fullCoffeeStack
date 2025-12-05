@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../contexts/AuthContext';
+import axios from 'axios';
 
 const Signin = () => {
   const {signInUser} = useContext(AuthContext)
@@ -20,20 +21,27 @@ const Signin = () => {
         lastSignInTime: result.user?.metadata?.lastSignInTime
 
       }
+
+      //use axios
+      axios.patch('http://localhost:7800/users', signInInfo)
+      .then(data =>{
+        console.log(data.data);
+      })
+
       //update last sign in to the batabase
-      fetch('https://coffee-store-server-lac-psi-86.vercel.app/users',{
-        method: 'PATCH',
+      // fetch('http://localhost:7800/users',{
+      //   method: 'PATCH',
 
-        headers:{
-          'content-type': 'application/json'
-        },
+      //   headers:{
+      //     'content-type': 'application/json'
+      //   },
 
-        body: JSON.stringify(signInInfo)
-      })
-      .then(res=> res.json())
-      .then(data => {
-        console.log('after update patch', data)
-      })
+      //   body: JSON.stringify(signInInfo)
+      // })
+      // .then(res=> res.json())
+      // .then(data => {
+      //   console.log('after update patch', data)
+      // })
 
     })
     .catch(error => {
